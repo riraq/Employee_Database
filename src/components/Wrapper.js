@@ -1,5 +1,4 @@
 import React from "react";
-import EmployeeCard from "./EmployeeCard";
 import EmployeeList from "./EmployeeList";
 import Header from "./Header";
 import SearchForm from "./SearchForm";
@@ -7,7 +6,7 @@ import API from "../utils/API";
 
 class Wrapper extends React.Component {
   state = {
-    result: {},
+    users: [],
     search: ""
   };
 
@@ -17,8 +16,7 @@ class Wrapper extends React.Component {
 
   generateUsers = () => {
     API.generate()
-      .then(res => this.setState({ result: res.data }))
-      .then(console.log(this.state))
+      .then(res => this.setState({ users: res.data.results }))
       .catch(err => console.log(err));
   };
 
@@ -28,19 +26,41 @@ class Wrapper extends React.Component {
     this.setState({
       [name]: value
     });
-    console.log(this.state)
   };
 
   render() {
     return (
       <div>
         <Header />
-        <SearchForm 
-        search={this.state.search}
-        handleInputChange={this.handleInputChange}
+        <SearchForm
+          search={this.state.search}
+          handleInputChange={this.handleInputChange}
         />
-        {/* <EmployeeList /> */}
-        {/* <EmployeeCard /> */}
+
+        <table className="sortable">
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.state.users.map(user => (
+              <EmployeeList
+                id={user.id.value}
+                key={user.id.value}
+                first={user.name.first}
+                last={user.name.last}
+                picture={user.picture.thumbnail}
+                phone={user.phone}
+                email={user.email}
+              />
+            ))}
+          </tbody>
+        </table>
+
       </div>
     )
   }
