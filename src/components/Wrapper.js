@@ -22,21 +22,25 @@ class Wrapper extends React.Component {
       .catch(err => console.log(err));
   };
 
-  // handleInputChange = event => {
-  //   const value = event.target.value;
-  //   const name = event.target.name;
-  //   this.setState({
-  //     [name]: value
-  //   });
-  // };
+  handleInputChange = event => {
+    const value = event.target.value;
+    const name = event.target.name;
+    this.setState({
+      [name]: value
+    });
+    console.log(this.state)
+  };
 
   render() {
     return (
       <div>
         <Header />
-        {/* <SearchForm />
-        <EmployeeList />
-        <EmployeeCard /> */}
+        <SearchForm 
+        search={this.state.search}
+        handleInputChange={this.handleInputChange}
+        />
+        {/* <EmployeeList /> */}
+        {/* <EmployeeCard /> */}
       </div>
     )
   }
