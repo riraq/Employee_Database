@@ -17,9 +17,9 @@ class Wrapper extends React.Component {
 
   generateUsers = () => {
     API.generate()
-    .then(res => this.setState({ result: res.data }))
-    .then(console.log(this.state))
-    .catch(err => console.log(err));
+      .then(res => this.setState({ result: res.data }))
+      .then(console.log(this.state))
+      .catch(err => console.log(err));
   };
 
   // handleInputChange = event => {
@@ -31,10 +31,15 @@ class Wrapper extends React.Component {
   // };
 
   render() {
-    return(
-    <h1>Hello</h1>
-  )}
-
+    return (
+      <div>
+        <Header />
+        {/* <SearchForm />
+        <EmployeeList />
+        <EmployeeCard /> */}
+      </div>
+    )
+  }
 };
 
 export default Wrapper;
