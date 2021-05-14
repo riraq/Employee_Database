@@ -8,6 +8,7 @@ import tableSort from "table-sort-js/table-sort.js";
 class Wrapper extends React.Component {
   state = {
     employees: [],
+    filteredEmployees: [],
     search: ""
   };
 
@@ -31,6 +32,41 @@ class Wrapper extends React.Component {
     console.log(this.state)
   };
 
+  renderList = () => {
+    if(this.state.search === ""){
+      // use employee state
+      console.log("search state", this.state.search)
+      console.log("employee state", this.state.employees)
+      return (this.state.employees.map(employee => (
+        <EmployeeList
+          id={employee.id.value}
+          key={employee.id.value}
+          first={employee.name.first}
+          last={employee.name.last}
+          picture={employee.picture.thumbnail}
+          phone={employee.phone}
+          email={employee.email}
+        />
+      )))
+    } else {
+      // use filtered employee state
+
+
+      return (this.state.filteredEmployees.map(employee => (
+        <EmployeeList
+          id={employee.id.value}
+          key={employee.id.value}
+          first={employee.name.first}
+          last={employee.name.last}
+          picture={employee.picture.thumbnail}
+          phone={employee.phone}
+          email={employee.email}
+        />
+      )))
+
+    }
+  }
+
   render() {
     return (
       <div>
@@ -50,19 +86,9 @@ class Wrapper extends React.Component {
               <th>Email</th>
             </tr>
           </thead>
-          <tbody>
-            {this.state.employees.map(employee => (
-              <EmployeeList
-                id={employee.id.value}
-                key={employee.id.value}
-                first={employee.name.first}
-                last={employee.name.last}
-                picture={employee.picture.thumbnail}
-                phone={employee.phone}
-                email={employee.email}
-              />
-            ))}
-          </tbody>
+            <tbody>
+            {this.renderList()}
+            </tbody>
         </table>
 
       </div>
