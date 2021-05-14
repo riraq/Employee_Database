@@ -2,8 +2,6 @@ import React from "react";
 
 function EmployeeList(props) {
 
-  console.log("employee list props", props)
-
   return (
 
         <tr>
