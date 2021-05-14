@@ -1,8 +1,8 @@
 import React from "react";
-import EmployeeList from "./EmployeeList";
-import Header from "./Header";
-import SearchForm from "./SearchForm";
-import API from "../utils/API";
+import EmployeeList from "../EmployeeList";
+import Header from "../Header";
+import SearchForm from "../SearchForm";
+import API from "../../utils/API";
 import tableSort from "table-sort-js/table-sort.js";
 
 class Wrapper extends React.Component {
@@ -20,8 +20,8 @@ class Wrapper extends React.Component {
   generateEmployees = () => {
     API.generate()
       .then(res => {
-        this.setState({employees: res.data.results})
-        this.setState({filteredEmployees: res.data.results})
+        this.setState({ employees: res.data.results })
+        this.setState({ filteredEmployees: res.data.results })
       })
       .catch(err => console.log(err));
   };
@@ -36,7 +36,7 @@ class Wrapper extends React.Component {
   };
 
   renderList = () => {
-    if(this.state.search === ""){
+    if (this.state.search === "") {
       // use employee state
       return (this.state.employees.map(employee => (
         <EmployeeList
@@ -75,26 +75,31 @@ class Wrapper extends React.Component {
     return (
       <div>
         <Header />
-        <SearchForm
-          employees={this.state.employees}
-          search={this.state.search}
-          handleInputChange={this.handleInputChange}
-        />
 
-        <table className="table-sort table-arrows">
-          <thead>
-            <tr>
-              <th>Image</th>
-              <th className="order-by-desc">Name</th>
-              <th>Phone</th>
-              <th>Email</th>
-            </tr>
-          </thead>
-            <tbody>
-            {this.renderList()}
-            </tbody>
-        </table>
+        <div className="container-fluid p-4">
+          <SearchForm
+            employees={this.state.employees}
+            search={this.state.search}
+            handleInputChange={this.handleInputChange}
+          />
 
+          <div className="table-responsive">
+            <table className="table-sort table-arrows table table-striped">
+              <thead>
+                <tr className="text-center align-middle">
+                  <th>Image</th>
+                  <th className="order-by-desc">Name</th>
+                  <th>Phone</th>
+                  <th>Email</th>
+                </tr>
+              </thead>
+              <tbody>
+                {this.renderList()}
+              </tbody>
+            </table>
+          </div>
+
+        </div>
       </div>
     )
   }
