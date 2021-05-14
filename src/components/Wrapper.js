@@ -19,7 +19,10 @@ class Wrapper extends React.Component {
 
   generateEmployees = () => {
     API.generate()
-      .then(res => this.setState({employees: res.data.results}))
+      .then(res => {
+        this.setState({employees: res.data.results})
+        this.setState({filteredEmployees: res.data.results})
+      })
       .catch(err => console.log(err));
   };
 
@@ -35,8 +38,6 @@ class Wrapper extends React.Component {
   renderList = () => {
     if(this.state.search === ""){
       // use employee state
-      console.log("search state", this.state.search)
-      console.log("employee state", this.state.employees)
       return (this.state.employees.map(employee => (
         <EmployeeList
           id={employee.id.value}
@@ -51,8 +52,11 @@ class Wrapper extends React.Component {
     } else {
       // use filtered employee state
 
-
-      return (this.state.filteredEmployees.map(employee => (
+      const filteredList = this.state.filteredEmployees.filter(employee => (
+        employee.name.first.includes(this.state.search)
+      ))
+      console.log("filteredList ", filteredList)
+      return (filteredList.map(employee => (
         <EmployeeList
           id={employee.id.value}
           key={employee.id.value}
