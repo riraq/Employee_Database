@@ -7,18 +7,18 @@ import tableSort from "table-sort-js/table-sort.js";
 
 class Wrapper extends React.Component {
   state = {
-    users: [],
+    employees: [],
     search: ""
   };
 
   componentDidMount() {
-    this.generateUsers();
+    this.generateEmployees();
     tableSort();
   };
 
-  generateUsers = () => {
+  generateEmployees = () => {
     API.generate()
-      .then(res => this.setState({users: res.data.results}))
+      .then(res => this.setState({employees: res.data.results}))
       .catch(err => console.log(err));
   };
 
@@ -36,7 +36,7 @@ class Wrapper extends React.Component {
       <div>
         <Header />
         <SearchForm
-          users={this.state.users}
+          employees={this.state.employees}
           search={this.state.search}
           handleInputChange={this.handleInputChange}
         />
@@ -51,15 +51,15 @@ class Wrapper extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.users.map(user => (
+            {this.state.employees.map(employee => (
               <EmployeeList
-                id={user.id.value}
-                key={user.id.value}
-                first={user.name.first}
-                last={user.name.last}
-                picture={user.picture.thumbnail}
-                phone={user.phone}
-                email={user.email}
+                id={employee.id.value}
+                key={employee.id.value}
+                first={employee.name.first}
+                last={employee.name.last}
+                picture={employee.picture.thumbnail}
+                phone={employee.phone}
+                email={employee.email}
               />
             ))}
           </tbody>
