@@ -53,7 +53,7 @@ class Wrapper extends React.Component {
       // use filtered employee state
 
       const filteredList = this.state.filteredEmployees.filter(employee => (
-        employee.name.first.includes(this.state.search)
+        employee.name.first.toLowerCase().includes(this.state.search)
       ))
       console.log("filteredList ", filteredList)
       return (filteredList.map(employee => (
